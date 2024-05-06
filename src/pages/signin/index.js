@@ -8,13 +8,14 @@ import {
  TextInput,
 } from 'react-native';
 
-const womanStartImage = require('../../assets/bem-vindo.png');
+const bemVindoImage = require('../../assets/bem-vindo.png');
+
 
 export default function SignIn() {
     return (
         <View style={styles.container}>
       {/*<StatusBar style="auto" />*/}
-      {/*<Image style={styles.bemvindo} source={bemVindoImage}/>*/}
+      <Image style={styles.bemvindo} source={bemVindoImage}/>
           <View style={styles.emailContainer}>
             <Text style={styles.email}>E-mail</Text>
           </View>    
