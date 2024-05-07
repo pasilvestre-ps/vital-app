@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+
 import {
  View, 
  Text,
@@ -9,33 +10,79 @@ import {
 } from 'react-native';
 
 const bemVindoImage = require('../../assets/bem-vindo.png');
+const google = require('../../assets/google.png');
+const facebook = require('../../assets/facebook.png');
+const apple = require('../../assets/apple.png');
 
 
 export default function SignIn() {
+  const [type, setType] = useState('login');
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  function handleLogin(){
+    alert('Teste')
+  }
+
     return (
-        <View style={styles.container}>
+    <View style={styles.container}>
       {/*<StatusBar style="auto" />*/}
       <Image style={styles.bemvindo} source={bemVindoImage}/>
+
           <View style={styles.emailContainer}>
             <Text style={styles.email}>E-mail</Text>
-          </View>    
-        <TextInput style={styles.input} placeholder="E-mail"/>
+          </View>
+
+          <TextInput 
+            style={styles.input} 
+            placeholder="Seu e-mail"
+            value={email}
+            onChangeText={ (text) => setEmail(text) }
+          />
+
           <View style={styles.senhaContainer}>
             <Text style={styles.email}>Senha</Text>  
           </View>
-        <TextInput style={styles.input} placeholder="Senha" secureTextEntry={true}/>                
+
+          <TextInput 
+            style={styles.input} 
+            placeholder="*********" 
+            value={password}
+            onChangeText={ (text) => setPassword(text) }
+            secureTextEntry={true}
+          />                
+          
           <View style={styles.forgot}>  
             <TouchableOpacity>
             <Text style={styles.forgotPassword}>Esqueceu a senha?</Text>
             </TouchableOpacity>
           </View>  
-      <TouchableOpacity style={styles.button}>
-      <Text style={styles.buttonText}>Entrar</Text>
-      </TouchableOpacity>     
+
+      <TouchableOpacity 
+        style={[styles.button, {backgroundColor: type === 'login' ? '#535CE8': '#171A1F'}]}
+        onPress={handleLogin}
+      >
+        <Text style={styles.buttonText}>
+          {type === 'login' ? 'Entrar' : 'Cadastrar'}
+        </Text>
+      </TouchableOpacity> 
+
+      
       <Text style={styles.or}>OU ENTRAR COM</Text>
-      <TouchableOpacity>
-      <Text style={styles.signup}>Não tem uma conta? Cadastre-se</Text>  
-      </TouchableOpacity>            
+
+      <View style={styles.socialContainer}>
+        <Image style={styles.google} source={google}/>
+        <Image style={styles.facebook} source={facebook}/>
+        <Image style={styles.apple} source={apple}/>
+      </View>
+      
+      <TouchableOpacity onPress={ () => setType(type => type === 'login' ? 'cadastrar' : 'login')}>
+        <Text style={styles.signup}>
+          {type === 'login' ? 'Não tem uma conta? Cadastre-se' : 'Já possuo uma conta'}          
+        </Text>   
+      </TouchableOpacity>  
+
     </View>
         
     );
@@ -57,7 +104,7 @@ const styles = StyleSheet.create({
     emailContainer: {
       width: '80%',
       alignItems: 'flex-start',
-      marginTop: 90,    
+      marginTop: 80,    
          
     },
     email: {
@@ -113,14 +160,15 @@ const styles = StyleSheet.create({
       fontFamily: 'Arial',
       fontSize: 20,
       fontWeight: '400',
-      color: '#fff',
+      color: '#fff',    
+    
     },
     or: {
       fontFamily: 'Arial',
       fontSize: 16,
       fontWeight: '600',
       marginTop: 45,
-      marginBottom: 150,
+      marginBottom: 30,
       color: '#6E7787'
       
     },
@@ -130,7 +178,26 @@ const styles = StyleSheet.create({
       fontWeight: '600',
       color: '#171A1F',
       
-    }
+    },
+    cadastre: {
+      fontFamily: 'Arial',
+      fontSize: 18,
+      fontWeight: '600',
+      color: '#535CE8',
+      
+    },
+    socialContainer: {
+      flexDirection: 'row',      
+      marginBottom: 150,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    socialIcon: {
+      marginHorizontal: 10, 
+      width: 50, 
+      height: 50,      
+    },
+
     
   });
   
